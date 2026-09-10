@@ -51,11 +51,12 @@ pipeline {
                             SCANNER_URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-8.0.1.6346-macosx-x64.zip"
                         fi
 
-                        curl -L "$SCANNER_URL" -o sonar-scanner.zip
-                        unzip -q sonar-scanner.zip
+                        rm -rf sonar-scanner.zip sonar-scanner-*
 
-                        SCANNER_DIR=$(find . -maxdepth 1 -type d -name "sonar-scanner-*" | head -1)
+curl -L "$SCANNER_URL" -o sonar-scanner.zip
+unzip -q sonar-scanner.zip
 
+SCANNER_DIR=$(find . -maxdepth 1 -type d -name "sonar-scanner-*" | head -1)
                         chmod +x "$SCANNER_DIR/bin/sonar-scanner"
 
                         "$SCANNER_DIR/bin/sonar-scanner"
